@@ -2,8 +2,10 @@ import streamlit as st
 import requests
 
 
+BASE_URL = st.secrets["BASE_URL"]
+
 def get_insights():
-    res = requests.get("https://cre-hawk-model-5mpzwxcytq-uc.a.run.app/aylien-tech-insights")
+    res = requests.get(f"{BASE_URL}/aylien-tech-insights")
     res.raise_for_status()
     return res.json()["insights"]
 
