@@ -5,7 +5,7 @@ import requests
 BASE_URL = st.secrets["BASE_URL"]
 
 def get_insights(category: str):
-    res = requests.get(f"{BASE_URL}/techcrunch-startup-insights/{category}")
+    res = requests.get(f"{BASE_URL}/techcrunch-insights/{category}")
     res.raise_for_status()
     return res.json()["insights"]
 
