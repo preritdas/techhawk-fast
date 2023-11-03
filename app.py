@@ -4,15 +4,28 @@ import requests
 
 BASE_URL = st.secrets["BASE_URL"]
 
-def get_insights():
-    res = requests.get(f"{BASE_URL}/techcrunch-startup-insights")
+def get_insights(category: str):
+    res = requests.get(f"{BASE_URL}/techcrunch-startup-insights/{category}")
     res.raise_for_status()
     return res.json()["insights"]
 
 
-st.title("Tech Insights")
+st.title("TechCrunch Insights")
+st.info("Choose a category from the sidebar.")
 
-insights = get_insights()
+with st.sidebar:
+    category = st.radio(
+        label="Choose a category.",
+        options=(
+            "startups",
+            "venture",
+            "security",
+            "artificial-intelligence",
+            "apps"
+        )
+    )
+
+insights = get_insights(category)
 
 for insight in insights:
     st.markdown(
