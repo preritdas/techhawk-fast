@@ -4,10 +4,15 @@ import requests
 
 BASE_URL = st.secrets["BASE_URL"]
 
-def get_insights(category: str):
+def get_insights(category: str) -> list[dict]:
     res = requests.get(f"{BASE_URL}/techcrunch-insights/{category}")
     res.raise_for_status()
-    return res.json()["insights"]
+    res_json = res.json()
+
+    if not "insights" in res_json:
+        return []
+
+    return res_json["insights"]
 
 
 st.title("TechCrunch Insights")
@@ -26,6 +31,9 @@ with st.sidebar:
     )
 
 insights = get_insights(category)
+
+if not insights:
+    st.error("No insights generated yet.")
 
 for insight in insights:
     st.markdown(
