@@ -33,7 +33,7 @@ with st.sidebar:
 insights = get_insights(category)
 
 if not insights:
-    st.error("No insights generated yet.")
+    st.error("No insights generated yet. Insights are generated twice a day, at 6am and 5pm (EST).")
 
 for insight in insights:
     st.markdown(
